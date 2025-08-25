@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="🧠 NeuroBoost - 미래 뇌과학자가 개발한 도파민 보상 체계 인지능력 테스트 게임. 가챠 시스템과 미션을 통해 뇌를 훈련하고 인류를 구하세요!">
+    <meta name="keywords" content="뇌훈련, 인지능력, 게임, 가챠, 도파민, 미니게임, brain training, cognitive test">
+    <meta name="author" content="NeuroBoost Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://neuroboost-game.vercel.app">
+    <meta property="og:title" content="🧠 NeuroBoost - 인지능력 테스트 게임">
+    <meta property="og:description" content="미래 뇌과학자가 개발한 도파민 보상 체계 인지능력 테스트 게임">
+    <meta property="og:image" content="https://neuroboost-game.vercel.app/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://neuroboost-game.vercel.app">
+    <meta property="twitter:title" content="🧠 NeuroBoost - 인지능력 테스트 게임">
+    <meta property="twitter:description" content="미래 뇌과학자가 개발한 도파민 보상 체계 인지능력 테스트 게임">
+    <meta property="twitter:image" content="https://neuroboost-game.vercel.app/og-image.png">
+    
+    <!-- PWA -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NeuroBoost">
+    
+    <title>🧠 NeuroBoost - 인지능력 테스트 게임</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- 웹툰 인트로 스크린 -->
+        <div id="webtoon-intro" class="screen active">
+            <div class="webtoon-container">
+                <div class="webtoon-panel panel-1">
+                    <div class="panel-bg future-lab">
+                        <div class="panel-content">
+                            <h2 class="panel-title">2087년, 뉴로사이언스 연구소</h2>
+                            <div class="character scientist">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="webtoon-panel panel-2 hidden">
+                    <div class="panel-bg time-machine">
+                        <div class="panel-content">
+                            <h2 class="panel-title">시간 역행 프로젝트 가동</h2>
+                            <div class="character scientist">
+                            </div>
+                            <div class="time-portal"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="webtoon-panel panel-3 hidden">
+                    <div class="panel-bg modern-world">
+                        <div class="panel-content">
+                            <h2 class="panel-title">2025년 - 현재</h2>
+                            <div class="character scientist present">
+                            </div>
+                            <div class="hologram-ui">
+                                <div class="ui-element">🧠 NeuroBoost</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 대사 표시 영역 -->
+                <div class="dialogue-area">
+                    <div class="dialogue-box">
+                        <div class="dialogue-text" id="dialogue-text">
+                            인류의 인지능력이 급격히 저하되고 있다...<br>
+                            이대로라면 문명이 붕괴할지도 모른다.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="webtoon-controls">
+                    <div class="progress-dots">
+                        <span class="dot active" data-panel="1"></span>
+                        <span class="dot" data-panel="2"></span>
+                        <span class="dot" data-panel="3"></span>
+                    </div>
+                    <button id="skip-intro" class="skip-btn">
+                        <span class="skip-icon">⏭️</span>
+                        <span class="skip-text">Skip</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 로딩 스크린 -->
+        <div id="loading-screen" class="screen">
+            <div class="loading-content">
+                <div class="pulse-circle"></div>
+                <h1>🧠 NeuroBoost</h1>
+                <p>뇌를 깨우는 인지능력 게임</p>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 메인 메뉴 -->
+        <div id="main-menu" class="screen">
+            <div class="menu-header">
+                <h1>🧠 NeuroBoost</h1>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-value" id="total-score">0</span>
+                        <span class="stat-label">총점</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🏆</span>
+                        <span class="stat-value" id="level">1</span>
+                        <span class="stat-label">레벨</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💰</span>
+                        <span class="stat-value" id="gold">0</span>
+                        <span class="stat-label">골드</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💎</span>
+                        <span class="stat-value" id="crystals">100</span>
+                        <span class="stat-label">크리스탈</span>
+                    </div>
+                </div>
+                
+
+            </div>
+
+            <!-- 메인 콘텐츠 영역 -->
+            <div class="main-content">
+                <!-- 게임 탭 -->
+                <div class="tab-content games-tab active">
+                    <div class="game-selection">
+                        <h2>🧠 인지능력 훈련</h2>
+                        <div class="game-cards">
+                            <div class="game-card" data-game="color-match">
+                                <div class="game-icon">🎨</div>
+                                <h3>색깔 매칭</h3>
+                                <p>같은 색을 빠르게 찾아보세요!</p>
+                                <div class="game-stats">
+                                    <span class="best-score">최고: <span id="color-best">0</span>점</span>
+                                </div>
+                            </div>
+                            <div class="game-card" data-game="sequence-memory">
+                                <div class="game-icon">🧩</div>
+                                <h3>순서 기억</h3>
+                                <p>패턴을 기억하고 따라해보세요!</p>
+                                <div class="game-stats">
+                                    <span class="best-score">최고: <span id="sequence-best">0</span>점</span>
+                                </div>
+                            </div>
+                            <div class="game-card" data-game="reaction-time">
+                                <div class="game-icon">⚡</div>
+                                <h3>반응속도</h3>
+                                <p>빠른 반응으로 점수를 획득하세요!</p>
+                                <div class="game-stats">
+                                    <span class="best-score">최고: <span id="reaction-best">0</span>점</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 컬렉션 탭 -->
+                <div class="tab-content collection-tab">
+                    <div class="collection-header">
+                        <h2>📦 뉴럴 컬렉션</h2>
+                        <div class="collection-stats">
+                            <span class="collection-count">수집: <span id="collected-count">0</span>/<span id="total-items">12</span></span>
+                            <span class="collection-power">총 뇌력: <span id="total-brain-power">0</span></span>
+                        </div>
+                    </div>
+                    <div class="collection-grid" id="collection-grid">
+                        <!-- 컬렉션 아이템들이 여기에 표시됩니다 -->
+                    </div>
+                </div>
+
+                <!-- 미션 탭 -->
+                <div class="tab-content mission-tab">
+                    <div class="mission-header">
+                        <h2>🎯 인류 구원 미션</h2>
+                        <div class="mission-progress">
+                            <div class="progress-ring">
+                                <svg class="progress-svg" width="120" height="120">
+                                    <circle cx="60" cy="60" r="50" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="none"/>
+                                    <circle id="progress-circle" cx="60" cy="60" r="50" stroke="#4ECDC4" stroke-width="8" fill="none" 
+                                            stroke-dasharray="314" stroke-dashoffset="314" stroke-linecap="round"/>
+                                </svg>
+                                <div class="progress-text">
+                                    <span id="mission-progress-percent">0</span>%
+                                </div>
+                            </div>
+                            <div class="mission-description">
+                                <h3>시간 역행 프로젝트</h3>
+                                <p>인류의 인지능력 저하를 막기 위해 필요한 뉴럴 에너지를 수집하세요!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-list" id="mission-list">
+                        <!-- 미션들이 여기에 표시됩니다 -->
+                    </div>
+                </div>
+
+                <!-- 랭킹 탭 -->
+                <div class="tab-content ranking-tab">
+                    <div class="ranking-header">
+                        <h2>🏆 글로벌 랭킹</h2>
+                        <div class="ranking-filters">
+                            <button class="filter-btn active" data-period="daily">일간</button>
+                            <button class="filter-btn" data-period="weekly">주간</button>
+                            <button class="filter-btn" data-period="monthly">월간</button>
+                        </div>
+                    </div>
+                    <div class="ranking-list" id="ranking-list">
+                        <!-- 랭킹이 여기에 표시됩니다 -->
+                    </div>
+                </div>
+
+                <!-- 가챠 탭 -->
+                <div class="tab-content gacha-tab">
+                    <div class="gacha-section">
+                        <h2>🎰 뉴럴 캡슐 가챠</h2>
+                        <div class="gacha-container">
+                            <div class="gacha-machine">
+                                <div class="gacha-display">
+                                    <div class="capsule-preview" id="capsule-preview">
+                                        <div class="capsule mystery">?</div>
+                                    </div>
+                                </div>
+                                <div class="gacha-info">
+                                    <div class="currency-display">
+                                        <span class="currency-icon">💎</span>
+                                        <span class="currency-amount" id="neural-crystals">0</span>
+                                        <span class="currency-label">뉴럴 크리스탈</span>
+                                    </div>
+                                    <button id="gacha-pull" class="gacha-btn" disabled>
+                                        뽑기 (100 💎)
+                                    </button>
+                                    <button id="gacha-10pull" class="gacha-btn premium" disabled>
+                                        10연차 (900 💎)
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="collection-preview">
+                                <h4>컬렉션 미리보기</h4>
+                                <div class="rarity-showcase">
+                                    <div class="rarity-item legendary">
+                                        <div class="item-icon">🌟</div>
+                                        <span>전설 (1%)</span>
+                                    </div>
+                                    <div class="rarity-item epic">
+                                        <div class="item-icon">💜</div>
+                                        <span>영웅 (5%)</span>
+                                    </div>
+                                    <div class="rarity-item rare">
+                                        <div class="item-icon">💙</div>
+                                        <span>희귀 (20%)</span>
+                                    </div>
+                                    <div class="rarity-item common">
+                                        <div class="item-icon">🤍</div>
+                                        <span>일반 (74%)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 게임 플레이 화면 -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <button id="back-btn" class="icon-btn">←</button>
+                <div class="game-info">
+                    <span class="game-title" id="current-game-title">게임</span>
+                    <div class="score-display">점수: <span id="current-score">0</span></div>
+                </div>
+                <div class="game-timer">
+                    <span id="timer">30</span>초
+                </div>
+            </div>
+            
+            <div class="game-area" id="game-area">
+                <!-- 동적으로 게임 내용이 여기에 삽입됩니다 -->
+            </div>
+
+            <div class="combo-indicator" id="combo-indicator">
+                <span class="combo-text">COMBO x<span id="combo-count">1</span></span>
+            </div>
+        </div>
+
+        <!-- 결과 화면 -->
+        <div id="result-screen" class="screen">
+            <div class="result-content">
+                <div class="result-header">
+                    <h2 id="result-title">게임 완료!</h2>
+                    <div class="final-score">
+                        <span class="score-label">최종 점수</span>
+                        <span class="score-value" id="final-score">0</span>
+                    </div>
+                </div>
+
+                <div class="achievements" id="achievements">
+                    <!-- 동적으로 성취 내용이 삽입됩니다 -->
+                </div>
+
+                <div class="rewards" id="rewards">
+                    <!-- 동적으로 보상 내용이 삽입됩니다 -->
+                </div>
+
+                <div class="result-actions">
+                    <button id="play-again-btn" class="btn primary">다시 플레이</button>
+                    <button id="menu-btn" class="btn secondary">메인 메뉴</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 보상 팝업 -->
+        <div id="reward-popup" class="popup">
+            <div class="popup-content">
+                <div class="reward-animation">
+                    <div class="reward-icon">🎉</div>
+                </div>
+                <h3 id="reward-title">보너스 획득!</h3>
+                <p id="reward-description">예상치 못한 보상을 받았습니다!</p>
+                <button id="claim-reward-btn" class="btn primary">받기</button>
+            </div>
+        </div>
+
+        <!-- 하단 네비게이션 바 -->
+        <div class="bottom-navbar">
+            <button class="nav-item active" data-tab="games">
+                <div class="nav-icon">🎮</div>
+                <div class="nav-label">게임</div>
+            </button>
+            <button class="nav-item" data-tab="collection">
+                <div class="nav-icon">📦</div>
+                <div class="nav-label">컬렉션</div>
+            </button>
+            <button class="nav-item" data-tab="mission">
+                <div class="nav-icon">🎯</div>
+                <div class="nav-label">미션</div>
+            </button>
+            <button class="nav-item" data-tab="ranking">
+                <div class="nav-icon">🏆</div>
+                <div class="nav-label">랭킹</div>
+            </button>
+            <button class="nav-item" data-tab="gacha">
+                <div class="nav-icon">🎰</div>
+                <div class="nav-label">가챠</div>
+            </button>
+        </div>
+
+        <!-- 가챠 결과 팝업 -->
+        <div id="gacha-result-popup" class="popup">
+            <div class="popup-content gacha-result">
+                <div class="gacha-result-header">
+                    <h3>🎰 가챠 결과</h3>
+                </div>
+                <div class="gacha-results-grid" id="gacha-results-grid">
+                    <!-- 가챠 결과가 여기에 표시됩니다 -->
+                </div>
+                <div class="gacha-result-summary">
+                    <div class="crystals-earned">
+                        +<span id="crystals-earned">0</span> 💎 획득!
+                    </div>
+                </div>
+                <button id="gacha-result-close" class="btn primary">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 
