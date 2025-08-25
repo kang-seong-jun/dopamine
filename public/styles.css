@@ -1015,6 +1015,69 @@ body {
     overflow: hidden;
 }
 
+/* 상단 Skip 버튼 */
+.top-skip-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    z-index: 200;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+}
+
+.top-skip-btn {
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    animation: skipButtonPulse 3s ease-in-out infinite;
+}
+
+.top-skip-btn:hover {
+    background: rgba(255, 107, 157, 0.9);
+    border-color: var(--primary-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 107, 157, 0.5);
+    animation: none;
+}
+
+.top-skip-btn:active {
+    transform: translateY(-1px);
+}
+
+.top-skip-btn .skip-icon {
+    font-size: 1.2rem;
+}
+
+.top-skip-btn .skip-text {
+    font-family: var(--font-futuristic);
+    letter-spacing: 0.5px;
+}
+
+@keyframes skipButtonPulse {
+    0%, 100% {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+        transform: scale(1.05);
+    }
+}
+
 .webtoon-container {
     position: relative;
     width: 100%;
@@ -1800,6 +1863,20 @@ body {
     
     .skip-icon {
         font-size: 0.9rem;
+    }
+    
+    /* 상단 Skip 버튼 모바일 */
+    .top-skip-container {
+        padding: 15px;
+    }
+    
+    .top-skip-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+    
+    .top-skip-btn .skip-icon {
+        font-size: 1.1rem;
     }
     
     /* 가챠 모바일 */

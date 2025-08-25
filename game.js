@@ -168,6 +168,11 @@ class GameState {
             this.skipIntro();
         });
         
+        // 상단 skip 버튼 이벤트
+        document.getElementById('top-skip-intro')?.addEventListener('click', () => {
+            this.skipIntro();
+        });
+        
         // 패널 클릭으로 다음 패널로 넘어가기
         document.querySelectorAll('.webtoon-panel').forEach(panel => {
             panel.addEventListener('click', () => {
