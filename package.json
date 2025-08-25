@@ -1,0 +1,30 @@
+{
+  "name": "neuroboost-game",
+  "version": "1.0.0",
+  "description": "🧠 NeuroBoost - 도파민 보상 체계를 활용한 인지능력 테스트 게임",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'Static site - no build needed'",
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": [
+    "brain-training",
+    "cognitive-game",
+    "dopamine-reward",
+    "gacha-system",
+    "korean-game",
+    "web-game",
+    "mini-game"
+  ],
+  "author": "NeuroBoost Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/neuroboost-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/neuroboost-game/issues"
+  },
+  "homepage": "https://neuroboost-game.vercel.app"
+} 
