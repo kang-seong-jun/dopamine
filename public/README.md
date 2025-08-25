@@ -75,7 +75,12 @@ NeuroBoost는 도파민 보상 체계를 활용하여 사용자의 리텐션을 
 
 ## 🔗 배포 링크
 
-**게임 플레이**: [NeuroBoost 게임 플레이하기](https://neuroboost-game.vercel.app)
+**게임 플레이**: [NeuroBoost 게임 플레이하기](https://dopamine-bcko9hwip-sjkang89-gmailcoms-projects.vercel.app)
+
+### 🚀 자동 배포 연동 완료
+- **GitHub 리포지토리**: https://github.com/kang-seong-jun/dopamine
+- **Vercel 자동 배포**: Git push 시 자동으로 새 버전 배포
+- **브랜치**: main 브랜치 푸시 시 프로덕션 배포
 
 ## 📄 라이선스
 
